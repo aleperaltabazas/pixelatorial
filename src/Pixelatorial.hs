@@ -23,7 +23,6 @@ import Pixelatorial.Options
 pixelCombinations :: PixelatorialOptions -> IO (Combinatorial Integer Integer String)
 pixelCombinations PixelatorialOptions {..} = do
   colors <- lines <$> readFile colorSet
-  print colors
   let combinations = combinatorial [1 .. width] [1 .. height] colors
   let afterDrop    = genericDrop (skip ?: 0) combinations
   return $ maybe combinations (`genericTake` combinations) cycles

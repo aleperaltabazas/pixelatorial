@@ -13,7 +13,7 @@ main = do
   combinations                  <- pixelCombinations opts
   let fileName = outputFolder ?: "svgs"
   createDirectoryIfMissing True fileName
-  forEach combinations $ \num comb -> writeFile (fileName ++ "/" ++ show num ++ ".svg") $ encodeCanvas (width, height) comb
+  forEach combinations $ \num comb -> writeFile (fileName ++ "/" ++ show num ++ ".svg") $ encodeCanvas (1, 1) (width, height) comb
 
 forEach :: Monad m => [a] -> (BigInt -> a -> m b) -> m ()
 forEach xs f = void $ foldl' applyIteration (return $ BigInt [0]) xs

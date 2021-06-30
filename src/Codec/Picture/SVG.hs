@@ -16,10 +16,16 @@ type Width = Integer
 type Height = Integer
 type Pixel = (Integer, Integer, Color)
 type Canvas = [Pixel]
+type OffsetX = Int
+type OffsetY = Int
 
-encodeCanvas :: (Width, Height) -> Canvas -> String
-encodeCanvas (width, height) matrix =
-  "<svg viewBox=\"1 1 "
+encodeCanvas :: (OffsetX, OffsetY) -> (Width, Height) -> Canvas -> String
+encodeCanvas (offsetX, offsetY) (width, height) matrix =
+  "<svg viewBox=\""
+    ++ show offsetX
+    ++ " "
+    ++ show offsetY
+    ++ " "
     ++ show width
     ++ " "
     ++ show height
