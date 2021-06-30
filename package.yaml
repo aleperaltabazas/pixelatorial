@@ -26,6 +26,7 @@ dependencies:
     - hspec
     - hedgehog == 1.0.3
     - optparse-applicative <= 0.15.1.0
+    - time <= 1.12
 
 library:
     source-dirs: src
@@ -34,7 +35,7 @@ library:
           other-modules: Paths_pixelatorial
 
 executables:
-    pixelatorial-exe:
+    pixelatorial:
         main: Main.hs
         source-dirs: app
         ghc-options:

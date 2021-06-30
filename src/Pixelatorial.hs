@@ -25,7 +25,7 @@ data CanvasConfig
   , canvasWidth :: Integer
   , canvasHeight :: Integer
   , canvasPixelSize :: Integer
-  }
+  } deriving (Show, Eq, Read)
 
 pixelCombinations :: CanvasConfig -> Combinatorial Integer Integer String
 pixelCombinations CanvasConfig {..} =
