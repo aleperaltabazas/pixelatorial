@@ -1,14 +1,15 @@
 {-# LANGUAGE RecordWildCards #-}
-
 {-# LANGUAGE ApplicativeDo #-}
 
 module Pixelatorial.Options
   ( PixelatorialOptions(..)
   , parsePixelatorialOptions
+  , makeCanvasConfig
   )
 where
 
 import Options.Applicative
+import Pixelatorial
 
 data PixelatorialOptions
   = PixelatorialOptions
@@ -46,3 +47,10 @@ pixelatorialOptionsParser = do
   height <- read <$> strOption (long "height" <> help "Canvas' height" <> metavar "HEIGHT")
   width  <- read <$> strOption (long "width" <> help "Canvas' width" <> metavar "WIDTH")
   return PixelatorialOptions { .. }
+
+makeCanvasConfig PixelatorialOptions {..} = do
+  colors <- lines <$> readFile colorSet
+  let canvasPixelSize = 1
+  let canvasWidth     = width
+  let canvasHeight    = height
+  return CanvasConfig { .. }

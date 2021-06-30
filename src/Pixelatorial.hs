@@ -1,10 +1,11 @@
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE DuplicateRecordFields #-}
 
 module Pixelatorial
   ( module Codec.Picture.SVG
   , module Data.BigInt
   , module Data.Combinatorial
-  , module Pixelatorial.Options
+  , CanvasConfig(..)
   , (?:)
   , pixelCombinations
   )
@@ -13,16 +14,19 @@ where
 import Codec.Picture.SVG
 import Data.BigInt
 import Data.Combinatorial
-import Data.List
 import Data.Maybe
-import Pixelatorial.Options
 
 (?:) :: Maybe a -> a -> a
 (?:) = flip fromMaybe
 
-pixelCombinations :: PixelatorialOptions -> IO (Combinatorial Integer Integer String)
-pixelCombinations PixelatorialOptions {..} = do
-  colors <- lines <$> readFile colorSet
-  let combinations = combinatorial [1 .. width] [1 .. height] colors
-  let afterDrop    = genericDrop (skip ?: 0) combinations
-  return $ maybe combinations (`genericTake` combinations) cycles
+data CanvasConfig
+  = CanvasConfig
+  { colors :: [Color]
+  , canvasWidth :: Integer
+  , canvasHeight :: Integer
+  , canvasPixelSize :: Integer
+  }
+
+pixelCombinations :: CanvasConfig -> Combinatorial Integer Integer String
+pixelCombinations CanvasConfig {..} =
+  combinatorial [1, 1 + canvasPixelSize .. canvasHeight] [1, 1 + canvasPixelSize .. canvasWidth] colors

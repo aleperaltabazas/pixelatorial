@@ -1,9 +1,12 @@
+{-# LANGUAGE RecordWildCards #-}
+
 module Codec.Picture.SVG
-  ( encodeCanvas
+  ( encodePicture
   , encodePixel
   , Color
   , Pixel
-  , Canvas
+  , Picture
+  , PictureOptions(..)
   , Width
   , Height
   )
@@ -15,12 +18,21 @@ type Color = String
 type Width = Integer
 type Height = Integer
 type Pixel = (Integer, Integer, Color)
-type Canvas = [Pixel]
+type Picture = [Pixel]
 type OffsetX = Int
 type OffsetY = Int
 
-encodeCanvas :: (OffsetX, OffsetY) -> (Width, Height) -> Canvas -> String
-encodeCanvas (offsetX, offsetY) (width, height) matrix =
+data PictureOptions
+  = PictureOptions
+  { offsetX :: Integer
+  , offsetY :: Integer
+  , width :: Integer
+  , height :: Integer
+  , pixelSize :: Integer
+  }
+
+encodePicture :: PictureOptions -> Picture -> String
+encodePicture PictureOptions {..} matrix =
   "<svg viewBox=\""
     ++ show offsetX
     ++ " "
@@ -30,9 +42,19 @@ encodeCanvas (offsetX, offsetY) (width, height) matrix =
     ++ " "
     ++ show height
     ++ "\" xmlns=\"http://www.w3.org/2000/svg\">"
-    ++ (foldl' (++) "" . map encodePixel) matrix
+    ++ (foldl' (++) "" . map (encodePixel pixelSize)) matrix
     ++ "</svg>"
 
-encodePixel :: Pixel -> String
-encodePixel (x, y, color) =
-  "<rect fill=\"" ++ color ++ "\" x=\"" ++ show x ++ "\" y=\"" ++ show y ++ "\" width=\"1\" height=\"1\"/>"
+encodePixel :: Integer -> Pixel -> String
+encodePixel pixelSize (x, y, color) =
+  "<rect fill=\""
+    ++ color
+    ++ "\" x=\""
+    ++ show x
+    ++ "\" y=\""
+    ++ show y
+    ++ "\" width=\""
+    ++ show pixelSize
+    ++ "\" height=\""
+    ++ show pixelSize
+    ++ "\"/>"
