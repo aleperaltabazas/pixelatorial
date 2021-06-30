@@ -12,14 +12,14 @@ where
 import Data.Foldable
 
 type Color = String
-type Width = Int
-type Height = Int
+type Width = Integer
+type Height = Integer
 type Pixel = (Integer, Integer, Color)
 type Canvas = [Pixel]
 
 encodeCanvas :: (Width, Height) -> Canvas -> String
 encodeCanvas (width, height) matrix =
-  "<svg viewBox=\"0 0 "
+  "<svg viewBox=\"1 1 "
     ++ show width
     ++ " "
     ++ show height

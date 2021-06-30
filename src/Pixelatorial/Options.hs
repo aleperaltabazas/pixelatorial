@@ -16,8 +16,8 @@ data PixelatorialOptions
   , colorSet :: FilePath
   , skip :: Maybe Int
   , outputFolder :: Maybe String
-  , height :: Int
-  , width :: Int
+  , height :: Integer
+  , width :: Integer
   } deriving (Show, Eq, Read)
 
 parsePixelatorialOptions = execParser $ info

@@ -60,4 +60,5 @@ cabal.project.local~
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,linux,haskell
 
-svgs
+svgs/
+color-set.txt
