@@ -29,4 +29,4 @@ data CanvasConfig
 
 pixelCombinations :: CanvasConfig -> Combinatorial Integer Integer String
 pixelCombinations CanvasConfig {..} =
-  combinatorial [1, 1 + canvasPixelSize .. canvasHeight] [1, 1 + canvasPixelSize .. canvasWidth] colors
+  combinatorial [1, 1 + canvasPixelSize .. canvasWidth] [1, 1 + canvasPixelSize .. canvasHeight] colors

@@ -26,11 +26,16 @@ main = do
   totalIterations <- forEach combinations
     $ \num comb -> writeFile (fileName ++ "/" ++ show num ++ ".svg") $ encodePicture pictureOptions comb
   end <- getPOSIXTime
-  putStrLn $ "Generated " ++ show totalIterations ++ " images in " ++ show (end - start) ++ "ms"
-
-
-
-
+  putStrLn
+    $  "Generated "
+    ++ show totalIterations
+    ++ " "
+    ++ show canvasWidth
+    ++ "x"
+    ++ show canvasHeight
+    ++ " images in "
+    ++ show (end - start)
+    ++ "ms"
 
  where
   takeMaybe cycles it = maybe it (`genericTake` it) cycles
