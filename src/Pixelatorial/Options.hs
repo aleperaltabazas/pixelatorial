@@ -19,6 +19,7 @@ data PixelatorialOptions
   , outputFolder :: Maybe String
   , height :: Integer
   , width :: Integer
+  , pixelSize :: Maybe Integer
   } deriving (Show, Eq, Read)
 
 parsePixelatorialOptions = execParser $ info
@@ -44,13 +45,15 @@ pixelatorialOptionsParser = do
     (long "skip" <> short 's' <> help "Skip OFFSET combinations before drawing." <> metavar "OFFSET")
   outputFolder <- optional $ read <$> strOption
     (long "output" <> short 'o' <> help "Folder to put the drawings. Default is svg/" <> metavar "OUTPUT")
-  height <- read <$> strOption (long "height" <> help "Canvas' height" <> metavar "HEIGHT")
-  width  <- read <$> strOption (long "width" <> help "Canvas' width" <> metavar "WIDTH")
+  height    <- read <$> strOption (long "height" <> help "Canvas' height" <> metavar "HEIGHT")
+  width     <- read <$> strOption (long "width" <> help "Canvas' width" <> metavar "WIDTH")
+  pixelSize <- optional $ read <$> strOption
+    (long "pixel-size" <> help "'Size' for pixels (height and width of the node on the SVG). Default is 1.")
   return PixelatorialOptions { .. }
 
 makeCanvasConfig PixelatorialOptions {..} = do
   colors <- lines <$> readFile colorSet
-  let canvasPixelSize = 1
+  let canvasPixelSize = pixelSize ?: 1
   let canvasWidth     = width
   let canvasHeight    = height
   return CanvasConfig { .. }
