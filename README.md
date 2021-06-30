@@ -1,1 +1,1 @@
-# pixelatory
+# pixelatorial

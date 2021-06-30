@@ -1,3 +1,3 @@
-# Changelog for pixelatory
+# Changelog for pixelatorial
 
 ## Unreleased changes

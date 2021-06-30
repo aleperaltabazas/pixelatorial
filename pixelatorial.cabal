@@ -4,11 +4,11 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 
-name:           pixelatory
+name:           pixelatorial
 version:        0.1.0.0
-description:    Please see the README on GitHub at <https://github.com/aleperaltabazas/pixelatory#readme>
-homepage:       https://github.com/aleperaltabazas/pixelatory#readme
-bug-reports:    https://github.com/aleperaltabazas/pixelatory/issues
+description:    Please see the README on GitHub at <https://github.com/aleperaltabazas/pixelatorial#readme>
+homepage:       https://github.com/aleperaltabazas/pixelatorial#readme
+bug-reports:    https://github.com/aleperaltabazas/pixelatorial/issues
 author:         Author name here
 maintainer:     example@example.com
 copyright:      2021 Author name here
@@ -21,43 +21,58 @@ extra-source-files:
 
 source-repository head
   type: git
-  location: https://github.com/aleperaltabazas/pixelatory
+  location: https://github.com/aleperaltabazas/pixelatorial
 
 library
   exposed-modules:
-      Lib
-  other-modules:
-      Paths_pixelatory
+      Codec.Picture.SVG
+      Data.BigInt
+      Data.Combinatorial
+      Pixelatorial
+      Pixelatorial.Options
   hs-source-dirs:
       src
   build-depends:
       base >=4.7 && <5
+    , bytestring <=0.10.10.1
     , directory <=1.3.6.0
+    , hedgehog ==1.0.3
+    , hspec
+    , optparse-applicative <=0.15.1.0
   default-language: Haskell2010
 
-executable pixelatory-exe
+executable pixelatorial-exe
   main-is: Main.hs
-  other-modules:
-      Paths_pixelatory
   hs-source-dirs:
       app
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
+    , bytestring <=0.10.10.1
     , directory <=1.3.6.0
-    , pixelatory
+    , hedgehog ==1.0.3
+    , hspec
+    , optparse-applicative <=0.15.1.0
+    , pixelatorial
   default-language: Haskell2010
 
-test-suite pixelatory-test
+test-suite pixelatorial-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
   other-modules:
-      Paths_pixelatory
+      Codec.Picture.SVGSpec
+      Data.BigIntSpec
+      Data.CombinatorialSpec
+      Paths_pixelatorial
   hs-source-dirs:
       test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
+    , bytestring <=0.10.10.1
     , directory <=1.3.6.0
-    , pixelatory
+    , hedgehog ==1.0.3
+    , hspec
+    , optparse-applicative <=0.15.1.0
+    , pixelatorial
   default-language: Haskell2010
