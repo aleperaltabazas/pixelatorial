@@ -1,3 +1,5 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module Codec.Picture.SVGSpec
   ( spec
   )

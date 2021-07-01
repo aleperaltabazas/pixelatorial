@@ -8,6 +8,8 @@ module Pixelatorial.Options
   )
 where
 
+import qualified Data.ByteString as BS
+import qualified Data.ByteString.Char8 as BS
 import Options.Applicative
 import Pixelatorial
 
@@ -52,7 +54,7 @@ pixelatorialOptionsParser = do
   return PixelatorialOptions { .. }
 
 makeCanvasConfig PixelatorialOptions {..} = do
-  colors <- lines <$> readFile colorSet
+  colors <- BS.lines <$> BS.readFile colorSet
   let canvasPixelSize = pixelSize ?: 1
   let canvasWidth     = width
   let canvasHeight    = height

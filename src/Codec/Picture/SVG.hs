@@ -1,3 +1,4 @@
+{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RecordWildCards #-}
 
 module Codec.Picture.SVG
@@ -7,20 +8,16 @@ module Codec.Picture.SVG
   , Pixel
   , Picture
   , PictureOptions(..)
-  , Width
-  , Height
   )
 where
 
+import Data.ByteString (ByteString)
+import qualified Data.ByteString.Char8 as B
 import Data.Foldable
 
-type Color = String
-type Width = Integer
-type Height = Integer
+type Color = ByteString
 type Pixel = (Integer, Integer, Color)
 type Picture = [Pixel]
-type OffsetX = Int
-type OffsetY = Int
 
 data PictureOptions
   = PictureOptions
@@ -31,30 +28,30 @@ data PictureOptions
   , pixelSize :: Integer
   }
 
-encodePicture :: PictureOptions -> Picture -> String
+encodePicture :: PictureOptions -> Picture -> ByteString
 encodePicture PictureOptions {..} matrix =
   "<svg viewBox=\""
-    ++ show offsetX
-    ++ " "
-    ++ show offsetY
-    ++ " "
-    ++ show width
-    ++ " "
-    ++ show height
-    ++ "\" xmlns=\"http://www.w3.org/2000/svg\">"
-    ++ (foldl' (++) "" . map (encodePixel pixelSize)) matrix
-    ++ "</svg>"
+    <> B.pack (show offsetX)
+    <> " "
+    <> B.pack (show offsetY)
+    <> " "
+    <> B.pack (show width)
+    <> " "
+    <> B.pack (show height)
+    <> "\" xmlns=\"http://www.w3.org/2000/svg\">"
+    <> (foldl' (<>) "" . map (encodePixel pixelSize)) matrix
+    <> "</svg>"
 
-encodePixel :: Integer -> Pixel -> String
+encodePixel :: Integer -> (Integer, Integer, Color) -> ByteString
 encodePixel pixelSize (x, y, color) =
   "<rect fill=\""
-    ++ color
-    ++ "\" x=\""
-    ++ show x
-    ++ "\" y=\""
-    ++ show y
-    ++ "\" width=\""
-    ++ show pixelSize
-    ++ "\" height=\""
-    ++ show pixelSize
-    ++ "\"/>"
+    <> color
+    <> "\" x=\""
+    <> B.pack (show x)
+    <> "\" y=\""
+    <> B.pack (show y)
+    <> "\" width=\""
+    <> B.pack (show pixelSize)
+    <> "\" height=\""
+    <> B.pack (show pixelSize)
+    <> "\"/>"

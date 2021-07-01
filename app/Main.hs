@@ -4,8 +4,9 @@
 module Main where
 
 import Control.Monad (void)
-import Data.List (genericDrop, genericTake)
+import qualified Data.ByteString as BS
 import Data.Foldable (foldl')
+import Data.List (genericDrop, genericTake)
 import Data.Time.Clock.POSIX (getPOSIXTime, POSIXTime)
 import Pixelatorial
 import Pixelatorial.Options
@@ -24,7 +25,7 @@ main = do
   let combinations = pixelCombinations canvasConfig
   -- let afterDrop = takeMaybe cycles . dropMaybe offset $ combinations
   totalIterations <- forEach combinations
-    $ \num comb -> writeFile (fileName ++ "/" ++ show num ++ ".svg") $ encodePicture pictureOptions comb
+    $ \num comb -> BS.writeFile (fileName ++ "/" ++ show num ++ ".svg") $ encodePicture pictureOptions comb
   end <- getPOSIXTime
   putStrLn
     $  "Generated "

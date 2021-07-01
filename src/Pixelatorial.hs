@@ -12,6 +12,7 @@ module Pixelatorial
 where
 
 import Codec.Picture.SVG
+import Data.ByteString
 import Data.BigInt
 import Data.Combinatorial
 import Data.Maybe
@@ -27,6 +28,6 @@ data CanvasConfig
   , canvasPixelSize :: Integer
   } deriving (Show, Eq, Read)
 
-pixelCombinations :: CanvasConfig -> Combinatorial Integer Integer String
+pixelCombinations :: CanvasConfig -> Combinatorial Integer Integer ByteString
 pixelCombinations CanvasConfig {..} =
   combinatorial [1, 1 + canvasPixelSize .. canvasWidth] [1, 1 + canvasPixelSize .. canvasHeight] colors
