@@ -38,11 +38,7 @@ pixelatorialOptionsParser = do
     <> metavar "CYCLES"
     )
   colorSet <- strOption
-    (  long "color-set"
-    <> help
-         "Path to color set. Should be a .csv with the RGB colors (format: red,green,blue) or a list of hex; either of them separated by newline."
-    <> metavar "COLOR-SET"
-    )
+    (long "color-set" <> help "Path to color set. Should be a list of hex colors separated by newline." <> metavar "COLOR-SET")
   skip <- optional $ read <$> strOption
     (long "skip" <> short 's' <> help "Skip OFFSET combinations before drawing." <> metavar "OFFSET")
   outputFolder <- optional $ read <$> strOption

@@ -23,20 +23,11 @@ main = do
       PictureOptions { offsetX = 1, offsetY = 1, pixelSize = canvasPixelSize, width = canvasWidth, height = canvasHeight }
   start <- getPOSIXTime
   let combinations = pixelCombinations canvasConfig
-  -- let afterDrop = takeMaybe cycles . dropMaybe offset $ combinations
-  totalIterations <- forEach combinations
+  totalIterations <- forEach (takeMaybe cycles . dropMaybe offset $ combinations)
     $ \num comb -> BS.writeFile (fileName ++ "/" ++ show num ++ ".svg") $ encodePicture pictureOptions comb
   end <- getPOSIXTime
-  putStrLn
-    $  "Generated "
-    ++ show totalIterations
-    ++ " "
-    ++ show canvasWidth
-    ++ "x"
-    ++ show canvasHeight
-    ++ " images in "
-    ++ show (end - start)
-    ++ "ms"
+  putStrLn $ "Generated " ++ show totalIterations ++ " " ++ show canvasWidth ++ "x" ++ show canvasHeight ++ " images in " ++ show
+    (end - start)
 
  where
   takeMaybe cycles it = maybe it (`genericTake` it) cycles
