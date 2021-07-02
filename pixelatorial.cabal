@@ -5,13 +5,14 @@ cabal-version: 1.12
 -- see: https://github.com/sol/hpack
 
 name:           pixelatorial
-version:        0.1.0.0
+version:        1.0.0
+synopsis:       An exhaustive image generator, pixelatorial can create any computable image (given enough time)
 description:    Please see the README on GitHub at <https://github.com/aleperaltabazas/pixelatorial#readme>
 homepage:       https://github.com/aleperaltabazas/pixelatorial#readme
 bug-reports:    https://github.com/aleperaltabazas/pixelatorial/issues
-author:         Author name here
-maintainer:     example@example.com
-copyright:      2021 Author name here
+author:         Alejandro Peralta Bazas
+maintainer:     aleperaltabazas@gmail.com
+copyright:      2021 Alejandro Peralta Bazas
 license:        BSD3
 license-file:   LICENSE
 build-type:     Simple
